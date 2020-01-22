@@ -1,7 +1,7 @@
-import pyttsx3 #pip install pyttsx3
-import speech_recognition as sr #pip install speechRecognition
+import pyttsx3 
+import speech_recognition as sr 
 import datetime
-import wikipedia #pip install wikipedia
+import wikipedia
 import webbrowser
 import os
 import smtplib
@@ -31,7 +31,7 @@ def wishMe():
     else:
         speak("Good Night! Mr Kanwar")
     
-    speak("I am Scooby, How may i assist you ?")       
+    speak("I am Scooby, How may i assist you ?")
 
 def takeCommand():
 
@@ -43,12 +43,11 @@ def takeCommand():
 
     try:
         print("Recognizing....")    
-        query = r.recognize_google(audio)
-        print("User said: "format.{query}\n")
+        query = r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}\n")
 
     except Exception as e:
-        # print(e)    
-        print("Say that again please...")  
+        print("Could you repeat please....")  
         return "None"
     return query
 
@@ -56,8 +55,8 @@ def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('divijkanwar19@gmail.com', 'password')
-    server.sendmail('email@gmail.com', to, content)
+    server.login('mymail@gmail.com', 'password')
+    server.sendmail('myemail@gmail.com', to, content)
     server.close()
 
 if __name__ == "__main__":
@@ -65,7 +64,7 @@ if __name__ == "__main__":
     while True:
     # if 1:
         query = takeCommand().lower()
-
+        
         if 'wikipedia' in query:
             speak('Searching Wikipedia...')
             query = query.replace("wikipedia", "")
@@ -85,7 +84,7 @@ if __name__ == "__main__":
 
 
         elif 'play music' in query:
-            music_dir = 'D:\\Non Critical\\songs\\Favorite Songs2'
+            music_dir = 'C:\\DivijKanwar\\songs\\songs'
             songs = os.listdir(music_dir)
             print(songs)    
             os.startfile(os.path.join(music_dir, songs[0]))
@@ -95,16 +94,16 @@ if __name__ == "__main__":
             speak(f"Sir, the time is {strTime}")
 
         elif 'open code' in query:
-            codePath = "C:\\Users\\Divij\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+            codePath = "C:\\Users\\divij\\AppData\\Local\\Programs\\Code.exe"
             os.startfile(codePath)
 
-        elif 'email to divij' in query:
+        elif 'email to' in query:
             try:
                 speak("What should I say?")
                 content = takeCommand()
-                to = "divijyourEmail@gmail.com"    
+                to = "yourotherEmail@gmail.com"    
                 sendEmail(to, content)
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
-                speak("Unable to send this email")    
+                speak("Sorry not able to send this Email")    
